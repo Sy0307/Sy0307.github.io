@@ -4,9 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Tmp, Sy03-Blog">
-    <meta name="description" content="为什么发布不出来呢
-">
+    <meta name="keywords" content="校队训练赛题解, Sy03-Blog">
+    <meta name="description" content="校队训练赛题解Author: Sy03, lintkey , cyj.
+Kirill and Company题解 - Sy03看到题目里k最多为6，很显然这是一个状压问题。
+定义一个dp[i][j] 表示在走到i点的时候，是否可以容纳j状态">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Tmp | Sy03-Blog</title>
+    <title>校队训练赛题解 | Sy03-Blog</title>
     <link rel="icon" type="image/png" href="/logo%20(2).png">
     
     <style>
@@ -342,12 +343,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Tmp</h1>
+                    <h1 class="description center-align post-title">校队训练赛题解</h1>
                 </div>
             </div>
         </div>
@@ -383,14 +384,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-11-28
+                    2022-11-29
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-28
+                    2022-11-29
                 </div>
                 
 
@@ -409,7 +410,43 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>为什么发布不出来呢</p>
+                <h1 id="校队训练赛题解"><a href="#校队训练赛题解" class="headerlink" title="校队训练赛题解"></a>校队训练赛题解</h1><p>Author: Sy03, lintkey , cyj.</p>
+<h2 id="Kirill-and-Company"><a href="#Kirill-and-Company" class="headerlink" title="Kirill and Company"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1741/problem/G">Kirill and Company</a></h2><h3 id="题解-Sy03"><a href="#题解-Sy03" class="headerlink" title="题解 - Sy03"></a>题解 - Sy03</h3><p>看到题目里<code>k</code>最多为<code>6</code>，很显然这是一个状压问题。</p>
+<p>定义一个dp[i][j] 表示在走到i点的时候，是否可以容纳j状态的人。</p>
+<p>毫无疑问，由于涉及最短路，我们需要先跑一次<code>bfs</code>。然后每次<code>bfs</code>的时候，再判断下当前的状态是否能够带别人回家（状态转移）。</p>
+<p>最后就是一个类似于背包的转移，这里压缩掉了一维。</p>
+<p>时间复杂度是$$64^2*n^2$$，也就是O(能过)。</p>
+<p>顺便说<code>bitset</code>是个好东西，跑起来飞快。</p>
+<p>注意一个坑，<code>bfs</code>的时候要记得打标记，不然可能会相互到达这样子。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; edge[maxn];</span><br><span class="line"><span class="type">int</span> dp[<span class="number">10010</span>][<span class="number">1</span> &lt;&lt; <span class="number">7</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n, m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">memset</span>(dp[i], <span class="number">0</span>, <span class="built_in">sizeof</span>(dp[i]));</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">0</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        edge[i].<span class="built_in">clear</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        edge[i].<span class="built_in">clear</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, m)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a, b;</span><br><span class="line">        cin &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        edge[a].<span class="built_in">push_back</span>(b);</span><br><span class="line">        edge[b].<span class="built_in">push_back</span>(a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> f;</span><br><span class="line">    cin &gt;&gt; f;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">h</span><span class="params">(f + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, f) cin &gt;&gt; h[i];</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> t;</span><br><span class="line">    cin &gt;&gt; t;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(t + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, t)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; p[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    vector&lt;pii&gt; q;</span><br><span class="line">    q.<span class="built_in">push_back</span>(&#123;<span class="number">1</span>, <span class="number">0</span>&#125;);</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">vis</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    dp[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        vector&lt;pii&gt; nxt;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;k : q)</span><br><span class="line">        &#123;</span><br><span class="line">            vis[k.first] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;now : q)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> u = now.first;</span><br><span class="line">            <span class="type">int</span> st = now.second;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> v : edge[u])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (vis[v])</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="type">int</span> nst = st;</span><br><span class="line">                <span class="built_in">fr</span>(i, <span class="number">1</span>, t)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (v == h[p[i]])</span><br><span class="line">                    &#123;</span><br><span class="line">                        nst |= (<span class="number">1</span> &lt;&lt; (i - <span class="number">1</span>));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (!dp[v][nst] &amp;&amp; !vis[v])</span><br><span class="line">                &#123;</span><br><span class="line">                    nxt.<span class="built_in">push_back</span>(&#123;v, nst&#125;);</span><br><span class="line">                    dp[v][nst] = +<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        q = nxt;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, t) h[p[i]] = <span class="number">0</span>;</span><br><span class="line">    bitset&lt;(1 &lt;&lt; 7)&gt; kk;</span><br><span class="line">    kk[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, f)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (h[i] == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="type">int</span> now = h[i];</span><br><span class="line">        <span class="keyword">auto</span> tmp = kk;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> x = <span class="number">0</span>; x &lt; <span class="number">64</span>; x++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> y = <span class="number">0</span>; y &lt; <span class="number">64</span>; y++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (dp[now][y])</span><br><span class="line">                &#123;</span><br><span class="line">                    tmp[x | y] = tmp[x | y] | kk[x];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        kk = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">0</span>, (<span class="number">1</span> &lt;&lt; t) - <span class="number">1</span>) <span class="keyword">if</span> (kk[i])</span><br><span class="line">    &#123;</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, (ll)__builtin_popcount(i));</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; t - ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Hashing-Trees"><a href="#Hashing-Trees" class="headerlink" title="Hashing Trees"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/901/A">Hashing Trees</a></h2><h3 id="题解-Sy03-1"><a href="#题解-Sy03-1" class="headerlink" title="题解 - Sy03"></a>题解 - Sy03</h3><p>随便拉的一个简单构造。</p>
+<p>可以想见的一个结论是，有且仅有可能是上下两层结点都是多个的情况下，才会有异构树的情况（不<code>perfect</code>）。</p>
+<p>然后就是考虑不<code>perfect</code>的情况下，怎么输出了。</p>
+<p>两种方案的话，第一种就是所有子结点都放在最右端的那个叶子上，然后构造就行了。</p>
+<p>第二种就是，大概还和第一种方法差不多，只要把两层之间的最后一个子结点接到上面一层的倒数第二个结点上就行了。</p>
+<p>很简单吧qwq</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">h</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">0</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; h[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">bool</span> suc = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (h[i] != <span class="number">1</span> &amp;&amp; h[i - <span class="number">1</span>] != <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            suc = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!suc)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;perfect&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ambiguous&quot;</span> &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    <span class="type">int</span> root = <span class="number">0</span>;</span><br><span class="line">    root += h[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">fr</span>(j, <span class="number">1</span>, h[i])</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; root &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        root += h[i];</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    root = <span class="number">0</span>;</span><br><span class="line">    cout &lt;&lt; <span class="number">0</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    root += h[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (h[i] != <span class="number">1</span> &amp;&amp; h[i - <span class="number">1</span>] != <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">fr</span>(j, <span class="number">1</span>, h[i] - <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; root &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cout &lt;&lt; root - <span class="number">1</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            root += h[i];</span><br><span class="line">        &#125;<span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">fr</span>(j, <span class="number">1</span>, h[i])</span><br><span class="line">            &#123;</span><br><span class="line">                cout &lt;&lt; root &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            root += h[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Two-Melodies"><a href="#Two-Melodies" class="headerlink" title="Two Melodies"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/813/problem/D">Two Melodies</a></h2><h3 id="题解-Sy03-2"><a href="#题解-Sy03-2" class="headerlink" title="题解-Sy03"></a>题解-Sy03</h3><p>很容易先想到一个$$n^3$$的暴力。</p>
+<p>接着就是去思考怎么去优化这个暴力，只要把一个$$n^2$$优化成$$n$$显然就可以了。</p>
+<p>注意到$$a_i$$的范围很重要，由于最大只有$$1e5$$，那么可以通过这个来加速。</p>
+<p>那么接下来就很显然了，具体的可以看看代码。</p>
+<p>其实是个很常见的套路吧qwq，感觉cf的rating tag给高了，毕竟是远古题，我觉得只有1600左右的难度罢。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> dp[maxn][maxn];</span><br><span class="line"><span class="type">int</span> a[maxn], maxmod[<span class="number">10</span>], maxnum[<span class="number">100010</span>];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">1</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">-0x3f</span>, <span class="built_in">sizeof</span>(dp));</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">fr</span>(i, <span class="number">0</span>, n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(maxmod, <span class="number">0</span>, <span class="built_in">sizeof</span>(maxmod));</span><br><span class="line">        <span class="built_in">memset</span>(maxnum, <span class="number">0</span>, <span class="built_in">sizeof</span>(maxnum));</span><br><span class="line">        <span class="built_in">fr</span>(j, <span class="number">1</span>, i)</span><br><span class="line">        &#123;</span><br><span class="line">            maxmod[a[j] % <span class="number">7</span>] = <span class="built_in">max</span>(maxmod[a[j] % <span class="number">7</span>], dp[i][j]);</span><br><span class="line">            maxnum[a[j]] = <span class="built_in">max</span>(maxnum[a[j]], dp[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">fr</span>(j, i + <span class="number">1</span>, n)</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i][j] = <span class="built_in">max</span>(dp[i][j], <span class="built_in">max</span>(&#123;maxnum[a[j] - <span class="number">1</span>], maxnum[a[j] + <span class="number">1</span>], maxmod[a[j] % <span class="number">7</span>]&#125;))+<span class="number">1</span>;</span><br><span class="line">            dp[i][j] = <span class="built_in">max</span>(dp[i][j], dp[i][<span class="number">0</span>] + <span class="number">1</span>);</span><br><span class="line">            dp[j][i] = dp[i][j];</span><br><span class="line"> </span><br><span class="line">            maxnum[a[j]] = <span class="built_in">max</span>(maxnum[a[j]], dp[i][j]);</span><br><span class="line">            maxmod[a[j] % <span class="number">7</span>] = <span class="built_in">max</span>(maxmod[a[j] % <span class="number">7</span>], dp[i][j]);</span><br><span class="line">            ans = <span class="built_in">max</span>(dp[i][j], ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
 
                 
             </div>
@@ -436,7 +473,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://sy0307.github.io/2022/11/28/Tmp/">https://sy0307.github.io/2022/11/28/Tmp/</a>
+                    <a href="https://sy0307.github.io/2022/11/29/%E6%A0%A1%E9%98%9F%E8%AE%AD%E7%BB%83%E8%B5%9B%E9%A2%98%E8%A7%A3/">https://sy0307.github.io/2022/11/29/%E6%A0%A1%E9%98%9F%E8%AE%AD%E7%BB%83%E8%B5%9B%E9%A2%98%E8%A7%A3/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -516,7 +553,7 @@
         repo: '',
         owner: '',
         admin: null,
-        id: '2022-11-28T17-05-20',
+        id: '2022-11-29T08-07-14',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -544,9 +581,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/11/29/%E6%A0%A1%E9%98%9F%E8%AE%AD%E7%BB%83%E8%B5%9B%E9%A2%98%E8%A7%A3/">
                     <div class="card-image">
@@ -564,9 +602,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -575,6 +613,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -582,7 +621,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2022/11/28/Tmp/">
@@ -612,7 +651,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -767,6 +805,13 @@
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 
