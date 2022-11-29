@@ -596,17 +596,17 @@ header .go-back i {
 @-webkit-keyframes rainbow {
 
     0%,
-    20% {
-        background: rgba(246, 246, 246, 0.276);
+    10% {
+        background: rgba(224, 224, 224, 0.265);
     }
 }
 
 @keyframes rainbow {
 
     0%,
-    20% {
-        background: rgba(246, 246, 246, 0.276);
-    }
+    10% {
+        background: rgba(229, 227, 230, 0.353);
+            }
 }
 
 .index-card {
