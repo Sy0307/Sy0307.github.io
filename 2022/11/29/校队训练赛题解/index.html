@@ -790,7 +790,7 @@ int main() &#123;
     cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="CF-1656D"><a href="#CF-1656D" class="headerlink" title="CF 1656D "></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/D">CF 1656D </a></h2><h3 id="题解-cyj"><a href="#题解-cyj" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><ul>
+<h2 id="CF-1656D-K-good"><a href="#CF-1656D-K-good" class="headerlink" title="CF 1656D-K-good "></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/D">CF 1656D-K-good </a></h2><h3 id="题解-cyj"><a href="#题解-cyj" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><ul>
 <li><p>考虑 bi 和 bi−1 的关系。我们先假设 b1∼bi−1 均合法。</p>
 <ul>
 <li>若 bi−1&#x3D;bi，则新增的两个数只需一大一小地取即可，bi 也一定合法。</li>
@@ -843,7 +843,7 @@ set<span class="token operator">&lt;</span><span class="token keyword">int</span
 
 
 
-<h2 id="CF-1656E"><a href="#CF-1656E" class="headerlink" title="CF 1656E"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/E">CF 1656E</a></h2><h3 id="题解-cyj-1"><a href="#题解-cyj-1" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><p>考虑钦定哪些 # 为 0，那么剩下的 # 的权值也就确定了，为最近的 0 到它的距离。</p>
+<h2 id="CF-1656E-Equal-Tree-Sums"><a href="#CF-1656E-Equal-Tree-Sums" class="headerlink" title="CF 1656E-Equal Tree Sums"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/E">CF 1656E-Equal Tree Sums</a></h2><h3 id="题解-cyj-1"><a href="#题解-cyj-1" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><p>考虑钦定哪些 # 为 0，那么剩下的 # 的权值也就确定了，为最近的 0 到它的距离。</p>
 <p>为什么确定了 0 的位置整张图就确定了？</p>
 <p>假设有一个权值为正的 #，相邻的点的权值集合 S。</p>
 <p>$|S|&#x3D;1$ 时，权值是确定的；<br>$|S|&gt;1$ 时，<br>$\max S-\min S\le2$，能够得到 # 确定的值，且只有一个；<br>否则，无论 # 值为多少，整张图都不满足相邻点权值差不超过 11 的要求。<br>设 # 个数为 cnt，所以答案为 $2^{cnt}-[cnt&#x3D;nm]$ ，注意没有 0 的情况。</p>
@@ -879,7 +879,7 @@ int main() &#123;
 
 
 
-<h2 id="CF-1656F"><a href="#CF-1656F" class="headerlink" title="CF 1656F"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/F">CF 1656F</a></h2><h3 id="题解-cyj-2"><a href="#题解-cyj-2" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><p>最后停止的局面，连续的空格长度一定不超过 1，且去掉空格后的环一定满足相邻两点颜色不同。</p>
+<h2 id="CF-1656F-Parametric-MST"><a href="#CF-1656F-Parametric-MST" class="headerlink" title="CF 1656F-Parametric MST"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/F">CF 1656F-Parametric MST</a></h2><h3 id="题解-cyj-2"><a href="#题解-cyj-2" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><p>最后停止的局面，连续的空格长度一定不超过 1，且去掉空格后的环一定满足相邻两点颜色不同。</p>
 <p>由于这是个环，所以可以确定最后的 A,B 数量是相等的，步数是偶数，所以后手必胜。</p>
 <p>每个人每时刻任何合法的选择都是最优策略。</p>
 <p>考虑枚举最后空格的个数、空格的位置、放置顺序的圆排列数，答案为</p>
