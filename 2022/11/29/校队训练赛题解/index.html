@@ -6,8 +6,10 @@
     <meta charset="utf-8">
     <meta name="keywords" content="校队训练赛题解, Sy03-Blog">
     <meta name="description" content="校队训练赛题解Author: Sy03, lintkey , cyj.
-Kirill and Company题解 - Sy03看到题目里k最多为6，很显然这是一个状压问题。
-定义一个dp[i][j] 表示在走到i点的时候，是否可以容纳j状态">
+CF1765K-Torus Path题解-lintkey答案为 总和 - 左下到右上对角线上最小值
+
+结论一：不存在方案能遍历对角线上所有数字
+证明：考虑每个对角线数字">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -391,7 +393,7 @@ Kirill and Company题解 - Sy03看到题目里k最多为6，很显然这是一�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-29
+                    2022-11-30
                 </div>
                 
 
@@ -414,6 +416,162 @@ Kirill and Company题解 - Sy03看到题目里k最多为6，很显然这是一�
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="校队训练赛题解"><a href="#校队训练赛题解" class="headerlink" title="校队训练赛题解"></a>校队训练赛题解</h1><p>Author: Sy03, lintkey , cyj.</p>
+<h2 id="CF1765K-Torus-Path"><a href="#CF1765K-Torus-Path" class="headerlink" title="CF1765K-Torus Path"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1765/problem/K">CF1765K-Torus Path</a></h2><h3 id="题解-lintkey"><a href="#题解-lintkey" class="headerlink" title="题解-lintkey"></a>题解-lintkey</h3><p>答案为 总和 - 左下到右上对角线上最小值</p>
+<ul>
+<li><p>结论一：不存在方案能遍历对角线上所有数字</p>
+<p>证明：考虑每个对角线数字的出边情况，如下图可知不存在方案能满足结论要求</p>
+<p><img src="https://s2.loli.net/2022/11/30/Qa5PiVUuED9R7x6.png"></p>
+</li>
+<li><p>结论二：有遍历方案能遍历除对角线上一个数字外的所有数字，例如下图</p>
+<p><img src="https://s2.loli.net/2022/11/30/ceTuVfqs6ERAPY8.png"></p>
+</li>
+</ul>
+<h2 id="CF-x2F-gym104021F-Function"><a href="#CF-x2F-gym104021F-Function" class="headerlink" title="CF&#x2F;gym104021F-Function!"></a><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104021/problem/F">CF&#x2F;gym104021F-Function!</a></h2><h3 id="题解-lintkey-1"><a href="#题解-lintkey-1" class="headerlink" title="题解-lintkey"></a>题解-lintkey</h3><p>$$f_a^{-1}(b)&#x3D;log_ab$$</p>
+<p>故</p>
+<p>$$ans&#x3D;\sum_{a&#x3D;2}^n\left(a\sum_{b&#x3D;a}^n\lfloor log_ab\rfloor\lceil1\rceil\right)$$</p>
+<p>其中，对于内层的求和 $a\sum_{b&#x3D;a}^n\lfloor log_ab\rfloor$ 可以 $O(log(n))$ 求出，因为对于区间 $b\in[a^k, a^{k+1})$，都有 $\lfloor log_ab\rfloor&#x3D;&#x3D;k$</p>
+<p>其次，当 $a&gt;\sqrt n$ 时，$\lfloor log_ab\rfloor&#x3D;&#x3D;1$ 恒成立，上式可化简为</p>
+<p>$$\sum_{a&#x3D;\lfloor\sqrt n\rfloor+1}^na\times(n-a+1)&#x3D;\sum_{a&#x3D;\lfloor\sqrt n\rfloor+1}^na\times(n+1)-a^2$$</p>
+<p>结合平方数列求和公式 $n(n+1)(2n+1)&#x2F;6$ 和等差求和公式，可 $O(1)$ 算出上式结果</p>
+<p>综上，总复杂度 $O(\sqrt n\ log(n))$</p>
+<p>代码：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
+#define inl inline
+#define con const
+#define cer constexpr
+#define ret return
+using namespace std;
+using us &#x3D; unsigned int;
+using ul &#x3D; unsigned long long;
+
+template&lt;class T&gt;
+inl T pow(T x, us nth) &#123;
+    T res(x!&#x3D;0||nth&#x3D;&#x3D;0);
+    for(; nth; x*&#x3D;x, nth&gt;&gt;&#x3D;1)
+        if(nth&amp;1) res *&#x3D; x;
+    ret res;
+&#125;
+
+template&lt;class T, T M, class U&#x3D;ul&gt;
+struct MT &#123;
+    T raw;
+    inl cer MT(con T _raw&#x3D;T()) : raw(move(_raw)) &#123;&#125; &#x2F;&#x2F; 同类型不预取模!
+    template&lt;class OT&gt;
+    inl cer MT(con OT _raw&#x3D;OT()) : raw(_raw%M) &#123;&#125;;
+    inl cer operator T() con &#123; ret raw; &#125;
+    inl MT&amp; add(con MT &amp;r) &#123; raw+&#x3D;r.raw; if(raw&gt;&#x3D;M) raw-&#x3D;M; ret *this; &#125;
+    inl MT&amp; sub(con MT &amp;r) &#123; if(r.raw&gt;raw) raw+&#x3D;M-r.raw; else raw-&#x3D;r.raw; ret *this; &#125;
+    inl MT&amp; mul(con MT &amp;r) &#123; raw &#x3D; (U(raw) * r.raw)%M; ret *this; &#125;
+    inl MT operator-() &#123; MT r; ret r.raw&#x3D;M-raw, r; &#125;
+    inl MT&amp; operator&#x3D;(con MT &amp;r) &#123; ret raw&#x3D;r.raw, *this; &#125;
+    inl MT&amp; operator+&#x3D;(con MT &amp;r) &#123; ret add(r); &#125;
+    inl MT&amp; operator-&#x3D;(con MT &amp;r) &#123; ret sub(r); &#125;
+    inl MT&amp; operator*&#x3D;(con MT &amp;r) &#123; ret mul(r); &#125;
+    friend inl MT operator+(MT l, con MT &amp;r) &#123; ret l.add(r); &#125;
+    friend inl MT operator-(MT l, con MT &amp;r) &#123; ret l.sub(r); &#125;
+    friend inl MT operator*(MT l, con MT &amp;r) &#123; ret l.mul(r); &#125;
+&#125;;
+&#x2F;&#x2F; &lt;- -- --- ----header end---- --- -- -&gt;
+cer us MOD &#x3D; 998244353;
+using ms &#x3D; MT&lt;us, MOD&gt;;
+con ms INV6 &#x3D; pow(ms(6), MOD-2);
+con ms INV2 &#x3D; pow(ms(2), MOD-2);
+
+ul n;
+
+&#x2F;&#x2F; 平方数列和
+inl ms count(ms x) &#123;
+    ret x*(x+ms(1))*(x+x+ms(1))*INV6;
+&#125;
+
+inl void solve() &#123;
+    us mx &#x3D; sqrt(n);
+    ms ans(0);
+    for(us a&#x3D;2, k; a&lt;&#x3D;mx; ++a) &#123;
+        con ul LIM &#x3D; n &#x2F; a; &#x2F;&#x2F; 防a**2超范围
+        &#x2F;&#x2F; [l, r)区间log_a相等
+        ul l &#x3D; a, r &#x3D; l*a; k &#x3D; 1;
+        while(r&lt;&#x3D;n) &#123;
+            ans +&#x3D; ms(a) * ms(r-l) * ms(k++);
+            r &#x3D; (l&#x3D;r)&gt;LIM ? n+1 : l*a;
+        &#125;
+        ans +&#x3D; ms(a) * ms(r-l) * ms(k);
+    &#125;
+    ans +&#x3D; count(mx)-count(n);
+    ans +&#x3D; ms(1ul+n+mx)*ms(n+1) * ms(n-mx) * INV2;
+    cout &lt;&lt; ans;
+&#125;
+
+int main() &#123;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin &gt;&gt; n; solve();
+    ret 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="CF-x2F-gym103470J-Xingqiu’s-Joke"><a href="#CF-x2F-gym103470J-Xingqiu’s-Joke" class="headerlink" title="CF&#x2F;gym103470J-Xingqiu’s Joke"></a><a target="_blank" rel="noopener" href="https://codeforces.com/gym/103470/problem/J">CF&#x2F;gym103470J-Xingqiu’s Joke</a></h1><h3 id="题解-lintkey-2"><a href="#题解-lintkey-2" class="headerlink" title="题解-lintkey"></a>题解-lintkey</h3><p>注意到，前两种操作都不会影响到两数之差，由此可知，第三种操作的除数必须是差的质因数</p>
+<p>质因数有限，直接枚举质因数记忆化搜索的规模不会太大</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
+#define inl inline
+#define con const
+#define cer constexpr
+#define ret return
+#define whi(...) while(__VA_ARGS__)
+using namespace std;
+using us &#x3D; unsigned int;
+using ul &#x3D; unsigned long long;
+
+template&lt;class T&gt; inl void tmx(T &amp;lhs, con T &amp;rhs) &#123; if(rhs&gt;lhs) lhs &#x3D; rhs; &#125;
+template&lt;class T&gt; inl void tmn(T &amp;lhs, con T &amp;rhs) &#123; if(rhs&lt;lhs) lhs &#x3D; rhs; &#125;
+&#x2F;&#x2F; &lt;- -- --- ----header end---- --- -- -&gt;
+us pri[114], pct, a, b;
+unordered_map&lt;ul, us&gt; dp;
+
+#define com(l, r) ((ul(l)&lt;&lt;32)|r)
+us dfs(us x, us d) &#123;
+    if(x&#x3D;&#x3D;1 || d&#x3D;&#x3D;1) ret x - 1;
+    if(dp[com(x, d)]) ret dp[com(x, d)];
+
+    us res &#x3D; x - 1; &#x2F;&#x2F; 仅一操作
+    for(us i&#x3D;0; i&lt;pct; ++i)
+        if(d%pri[i] &#x3D;&#x3D; 0) &#123;
+            con us tmp &#x3D; x % pri[i];
+            tmn(res, min(
+                tmp + 1 + dfs(x&#x2F;pri[i], d&#x2F;pri[i]),              &#x2F;&#x2F; 减对齐到质数
+                (pri[i]-tmp) + 1 + dfs(x&#x2F;pri[i]+1, d&#x2F;pri[i])    &#x2F;&#x2F; 加对齐到质数
+            ));
+        &#125;
+
+    ret dp[com(x, d)] &#x3D; res;
+&#125;
+
+us _t &#x3D; 1;
+inl void solve() &#123;
+    cout &lt;&lt; dfs(a, b-a);
+    if(--_t) cout &lt;&lt; &#39;\n&#39;;
+&#125;
+
+inl void pre() &#123;
+    dp.clear(); pct &#x3D; 0;
+    cin &gt;&gt; a &gt;&gt; b;
+    if(a&gt;b) swap(a, b);
+    us d &#x3D; b - a;
+    con us LIM &#x3D; sqrt(d);
+    for(us i&#x3D;2; i&lt;&#x3D;LIM; ++i)
+        if(d%i &#x3D;&#x3D; 0) &#123;
+            pri[pct++] &#x3D; i;
+            whi(d%i &#x3D;&#x3D; 0) d &#x2F;&#x3D; i;
+        &#125;
+    if(d&gt;1) pri[pct++] &#x3D; d;
+&#125;
+
+int main() &#123;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin &gt;&gt; _t; whi(_t) pre(), solve();
+    ret 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="Kirill-and-Company"><a href="#Kirill-and-Company" class="headerlink" title="Kirill and Company"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1741/problem/G">Kirill and Company</a></h2><h3 id="题解-Sy03"><a href="#题解-Sy03" class="headerlink" title="题解 - Sy03"></a>题解 - Sy03</h3><p>看到题目里<code>k</code>最多为<code>6</code>，很显然这是一个状压问题。</p>
 <p>定义一个<code>dp[i][j]</code> 表示在走到i点的时候，是否可以容纳j状态的人。</p>
 <p>毫无疑问，由于涉及最短路，我们需要先跑一次<code>bfs</code>。然后每次<code>bfs</code>的时候，再判断下当前的状态是否能够带别人回家（状态转移）。</p>
@@ -631,6 +789,138 @@ Kirill and Company题解 - Sy03看到题目里k最多为6，很显然这是一�
     <span class="token punctuation">&#125;</span>
     cout <span class="token operator">&lt;&lt;</span> ans <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="CF-1656D"><a href="#CF-1656D" class="headerlink" title="CF 1656D "></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/D">CF 1656D </a></h2><h3 id="题解-cyj"><a href="#题解-cyj" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><ul>
+<li><p>考虑 bi 和 bi−1 的关系。我们先假设 b1∼bi−1 均合法。</p>
+<ul>
+<li>若 bi−1&#x3D;bi，则新增的两个数只需一大一小地取即可，bi 也一定合法。</li>
+<li>若 bi−1&lt;bi，因为 bi−1 是 2i−3 个数的中位数，所以序列中一定有 i−1 个数比 bi 小。对于任意一个 bj(j&lt;i−1) ，如果其满足 bj≤bi−1，则它可以作为这 i−1 个数中的一个数，不影响结果。若其满足 bi−1&lt;bj&lt;bi，则此时我们发现序列中至少有 i 个数比 bi 小，这就是不合法的。</li>
+<li>若 bi−1&gt;bi，同理寻找有无一个 bj 满足 bi−1&gt;bj&gt;bi 即可。</li>
+</ul>
+<p>我们发现所有相同的数出现一次和出现多次在统计答案时没有区别，因为可以简单地使用一个 set 维护，每次查询时：</p>
+<ul>
+<li>若 bi−1&lt;bi，查询 bi−1 的后继是否为 bi，若不是则不存在合法序列 a。</li>
+<li>若 bi−1&gt;bi，查询 bi 的后继是否为 bi−1。</li>
+</ul>
+</li>
+</ul>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> N <span class="token operator">=</span> <span class="token number">2e5</span> <span class="token operator">+</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> T<span class="token punctuation">,</span> n<span class="token punctuation">;</span>
+<span class="token keyword">int</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+set<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> s<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>T<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>T<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">bool</span> fl <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        s<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>s<span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> b<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>b<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">upper_bound</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> s<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    fl <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">upper_bound</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> s<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    fl <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>fl<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"YES\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"NO\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="CF-1656E"><a href="#CF-1656E" class="headerlink" title="CF 1656E"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/E">CF 1656E</a></h2><h3 id="题解-cyj-1"><a href="#题解-cyj-1" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><p>考虑钦定哪些 # 为 0，那么剩下的 # 的权值也就确定了，为最近的 0 到它的距离。</p>
+<p>为什么确定了 0 的位置整张图就确定了？</p>
+<p>假设有一个权值为正的 #，相邻的点的权值集合 S。</p>
+<p>$|S|&#x3D;1$ 时，权值是确定的；<br>$|S|&gt;1$ 时，<br>$\max S-\min S\le2$，能够得到 # 确定的值，且只有一个；<br>否则，无论 # 值为多少，整张图都不满足相邻点权值差不超过 11 的要求。<br>设 # 个数为 cnt，所以答案为 $2^{cnt}-[cnt&#x3D;nm]$ ，注意没有 0 的情况。</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
+using ll &#x3D; long long;
+const int P &#x3D; 1e9 + 7;
+int main() &#123;
+    std::ios::sync_with_stdio(false), std::cin.tie(nullptr);
+    int cases;
+    std::cin &gt;&gt; cases;
+    while (cases--) &#123;
+        int n, m;
+        std::cin &gt;&gt; n &gt;&gt; m;
+        std::vector&lt;std::string&gt; a(n);
+        int ans &#x3D; 1;
+        bool zero &#x3D; false;
+        for (int i &#x3D; 0; i &lt; n; ++i) &#123;
+            std::cin &gt;&gt; a[i];
+            for (int j &#x3D; 0; j &lt; m; ++j) &#123;
+                if (a[i][j] &#x3D;&#x3D; &#39;0&#39;)
+                    zero &#x3D; true;
+                else
+                    ans &#x3D; (ll)ans * 2 % P;
+            &#125;
+        &#125;
+        if (!zero)
+            ans &#x3D; (ans + P - 1) % P;
+        std::cout &lt;&lt; ans &lt;&lt; &#39;\n&#39;;
+    &#125;
+
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="CF-1656F"><a href="#CF-1656F" class="headerlink" title="CF 1656F"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1656/problem/F">CF 1656F</a></h2><h3 id="题解-cyj-2"><a href="#题解-cyj-2" class="headerlink" title="题解-cyj"></a>题解-cyj</h3><p>最后停止的局面，连续的空格长度一定不超过 1，且去掉空格后的环一定满足相邻两点颜色不同。</p>
+<p>由于这是个环，所以可以确定最后的 A,B 数量是相等的，步数是偶数，所以后手必胜。</p>
+<p>每个人每时刻任何合法的选择都是最优策略。</p>
+<p>考虑枚举最后空格的个数、空格的位置、放置顺序的圆排列数，答案为</p>
+<p>$n\sum_{i&#x3D;n\bmod 2}^{\lfloor n&#x2F;2\rfloor} 2\cdot{n-i\choose i}\cdot(n-i-1)!$</p>
+<p>注意其中系数 n 是环旋转的方案数，系数 2 是 A,B 交错有两种的可能的排列。</p>
+<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
+using ll &#x3D; long long;
+const int P &#x3D; 1e9 + 7;
+int power(int a, int b) &#123;
+    int res &#x3D; 1;
+    while (b) &#123;
+        if (b &amp; 1)
+            res &#x3D; (ll)res * a % P;
+        a &#x3D; (ll)a * a % P;
+        b &gt;&gt;&#x3D; 1;
+    &#125;
+    return res;
+&#125;
+
+int main() &#123;
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int n;
+    std::cin &gt;&gt; n;
+    std::vector&lt;int&gt; fac(n + 1), ifac(n + 1);
+    fac[0] &#x3D; ifac[0] &#x3D; 1;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; ++i)
+        fac[i] &#x3D; (ll)fac[i - 1] * i % P;
+    ifac[n] &#x3D; power(fac[n], P - 2);
+    for (int i &#x3D; n; i &gt; 1; --i)
+        ifac[i - 1] &#x3D; (ll)ifac[i] * i % P;
+    auto choose &#x3D; [&amp;](int x, int y) -&gt; int &#123;
+        return (ll)fac[x] * ifac[y] % P * ifac[x - y] % P;
+    &#125;;
+    int ans &#x3D; 0;
+    for (int i &#x3D; n % 2; i &lt;&#x3D; n &#x2F; 2; i +&#x3D; 2)
+        ans &#x3D; (ans + (ll)choose(n - i, i) * 2 * fac[n - i - 1]) % P;
+    ans &#x3D; (ll)ans * n % P;
+    std::cout &lt;&lt; ans &lt;&lt; &#39;\n&#39;;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
